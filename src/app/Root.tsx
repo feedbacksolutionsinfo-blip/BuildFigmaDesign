@@ -209,7 +209,7 @@ function SiteHeader({ onDemoOpen }: { onDemoOpen: () => void }) {
   }, []);
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-50">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-6 flex items-center justify-between">
 
         {/* Logo */}
@@ -220,7 +220,7 @@ function SiteHeader({ onDemoOpen }: { onDemoOpen: () => void }) {
         {/* Nav pill — home vs product page */}
         {isProductPage ? (
           <nav
-            className="hidden md:flex items-center justify-center gap-[32px] py-2.5 rounded-[40px] shadow-[0px_0.5px_2.9px_0px_rgba(0,0,0,0.25)]"
+            className="hidden md:flex items-center justify-center gap-[32px] py-2.5 rounded-[40px] shadow-[0px_0.5px_2.9px_0px_rgba(0,0,0,0.25)] min-h-[48px]"
             style={{ backgroundColor: "rgba(0,0,0,0.05)", backdropFilter: "blur(8px)", paddingLeft: 24, paddingRight: 24 }}
           >
             <Link
@@ -243,8 +243,8 @@ function SiteHeader({ onDemoOpen }: { onDemoOpen: () => void }) {
           </nav>
         ) : (
           <nav
-            className="hidden md:flex items-center justify-center gap-[40px] py-2.5 rounded-[40px] shadow-[0px_0.5px_2.9px_0px_rgba(0,0,0,0.25)]"
-            style={{ backgroundColor: "rgba(0,0,0,0.05)", backdropFilter: "blur(8px)", width: 575 }}
+            className="hidden md:flex items-center justify-center gap-[40px] py-2.5 rounded-[40px] shadow-[0px_0.5px_2.9px_0px_rgba(0,0,0,0.25)] min-h-[48px]"
+            style={{ backgroundColor: "rgba(0,0,0,0.05)", backdropFilter: "blur(8px)", paddingLeft: 24, paddingRight: 24 }}
           >
             {[
               { label: "eaisy", href: "#mi-az-eaisy" },
@@ -334,7 +334,7 @@ function SiteFooter() {
                 Navigáció
               </p>
               {["eaisy", "Termékek", "Rólunk"].map((item) => (
-                <a key={item} href="#" className="text-sm font-['Inter',sans-serif] text-white/70 hover:text-white transition-colors">
+                <a key={item} href="#" className="text-sm font-['Inter',sans-serif] text-white/77 hover:text-white transition-colors">
                   {item}
                 </a>
               ))}
@@ -344,7 +344,7 @@ function SiteFooter() {
                 Termékek
               </p>
               {products.map((p) => (
-                <Link key={p.name} to={p.path} className="text-sm font-['Inter',sans-serif] text-white/70 hover:text-white transition-colors">
+                <Link key={p.name} to={p.path} className="text-sm font-['Inter',sans-serif] text-white/77 hover:text-white transition-colors">
                   {p.name}
                 </Link>
               ))}
@@ -354,7 +354,7 @@ function SiteFooter() {
                 Kapcsolat
               </p>
               <p className="text-sm font-['Inter',sans-serif] font-semibold text-white">ÍRJ NEKÜNK!</p>
-              <a href="mailto:hello@thinkai.hu" className="text-sm font-['Inter',sans-serif] text-white/70 hover:text-white transition-colors">
+              <a href="mailto:hello@thinkai.hu" className="text-sm font-['Inter',sans-serif] text-white/77 hover:text-white transition-colors">
                 hello@thinkai.hu
               </a>
             </div>
@@ -384,7 +384,7 @@ export default function Root() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#f6f6f6]">
+    <div className="relative min-h-screen flex flex-col bg-[#F8F5F8]">
       <SiteHeader onDemoOpen={() => setDemoOpen(true)} />
       <main className="flex-1">
         <Outlet />

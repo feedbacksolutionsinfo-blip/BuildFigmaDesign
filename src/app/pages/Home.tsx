@@ -12,7 +12,7 @@ import imgHR from "@/imports/Mobile/bfdac52013fd058c16676a0d83a329a0a460bdb9.png
 
 function Hero() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#f6f6f6]" style={{ height: "80vh", minHeight: 520 }}>
+    <section className="relative w-full overflow-hidden bg-[#F8F5F8]" style={{ height: "80vh", minHeight: 520 }}>
       {/* full-bleed background image under the header */}
       <div className="absolute inset-0">
         <img
@@ -21,8 +21,8 @@ function Hero() {
           className="w-full h-full object-cover object-center"
           style={{ opacity: 0.45 }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#f0f0f0]/70 via-[#f6f6f6]/30 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#f6f6f6] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#f0f0f0]/70 via-[#F8F5F8]/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F8F5F8] to-transparent" />
       </div>
 
       {/* ── top row: tagline ── sits just below header */}
@@ -64,7 +64,7 @@ function WhatIsEaisy() {
   ];
 
   return (
-    <section id="mi-az-eaisy" className="w-full bg-[#f6f6f6] pt-8 pb-20 lg:pb-28 -mt-16 relative z-10">
+    <section id="mi-az-eaisy" className="w-full bg-[#F8F5F8] pt-8 pb-20 lg:pb-28 -mt-16 relative z-10">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row gap-16 lg:gap-24">
         {/* left: text */}
         <div className="lg:max-w-sm xl:max-w-md flex flex-col gap-6 shrink-0">

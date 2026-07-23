@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import imgDesk from "@/imports/Mobile/faf98039103ec19a5a8cea4bb3b15bb435e98f27.png";
 
 const COLOR = "#186d98";
-const COLOR_LIGHT = "#e8f3f9";
+const COLOR_LIGHT = "#DFFFFD";
 
 const features = [
   {
@@ -38,12 +38,12 @@ const channels = [
 
 export default function EaisyDesk() {
   return (
-    <div className="bg-[#f6f6f6]">
+    <div className="bg-[#F8F5F8]">
       {/* Hero */}
       <section className="relative w-full overflow-hidden" style={{ backgroundColor: COLOR_LIGHT }}>
         <div className="absolute inset-0 opacity-20">
           <img src={imgDesk} alt="" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#e8f3f9] via-[#e8f3f9]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#DFFFFD] via-[#DFFFFD]/80 to-transparent" />
         </div>
         <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 py-20 lg:py-32 flex flex-col lg:flex-row lg:items-center gap-12">
           <div className="flex flex-col gap-6 lg:max-w-xl pt-16">
@@ -97,7 +97,7 @@ export default function EaisyDesk() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             {channels.map((ch) => (
-              <div key={ch.label} className="flex items-center gap-2.5 px-5 py-3 bg-[#f6f6f6] rounded-full border border-black/5">
+              <div key={ch.label} className="flex items-center gap-2.5 px-5 py-3 bg-[#F8F5F8] rounded-full border border-black/5">
                 <span className="text-xl">{ch.icon}</span>
                 <span className="font-['Inter',sans-serif] font-medium text-sm text-black/70">{ch.label}</span>
               </div>
@@ -107,7 +107,7 @@ export default function EaisyDesk() {
       </section>
 
       {/* Features */}
-      <section className="w-full bg-[#f6f6f6] py-20 lg:py-28">
+      <section className="w-full bg-[#F8F5F8] py-20 lg:py-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="flex flex-col gap-4 max-w-2xl mb-14">
             <p className="font-['Montserrat',sans-serif] font-medium text-sm tracking-widest uppercase" style={{ color: COLOR }}>

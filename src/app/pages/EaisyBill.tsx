@@ -1,29 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import { Check, ChevronDown, FileX, Clock, Zap, ListX, Timer, LayoutDashboard } from "lucide-react";
+import { Check, ChevronDown, FileText, Calendar, Zap, Database, Clock, TrendingUp, Mail, BarChart3 } from "lucide-react";
 import imgHero from "@/imports/EaisyBillNyito0/808a7ecc27a2d6165cfc3842e1f3fe6578bebc62.png";
-import imgDash from "@/imports/EaisyBill2Megoldas/abe5c9e44283ca71b932c0cc950754bda11971f2.png";
+import imgBgLaptop from "@/imports/EaisyBill2Megoldas/bg-laptop.png";
 import { openDemoModal } from "@/app/Root";
 import EaisybillLogo from "@/imports/EaisybillLogoBrightBackground/index";
 
 const C = {
-  dark: "#032d32",
-  darker: "#082432",
-  teal: "#005757",
-  accent: "#6accc3",
-  bright: "#3ad6b9",
-  coral: "#f26b77",
-  lightBg: "#eefdf8",
-  bodyText: "#4a5565",
+  dark: "#032D32",     // Teal 900
+  teal: "#005757",     // Teal 800
+  main: "#0D9488",     // Teal 600
+  accent: "#6ACCC3",   // Teal 400
+  coral: "#F26B77",    // Rose 600
+  lightBg: "#E2FBF4",  // Teal 50
+  bodyText: "rgba(0,0,0,0.55)",
 };
 
 const PROBLEMS = [
-  { icon: FileX, title: "Hiányzó számlák", desc: "Papíron, e-mailben, különböző csatornákon érkeznek: nehéz követni, mi hol van, mi vár még feldolgozásra." },
-  { icon: Clock, title: "Várakozás a könyvelésre", desc: 'A valós pénzügyi helyzet sokszor csak hónapzáráskor derül ki — addig a cég "vakon repül".' },
-  { icon: Zap, title: "Stresszes ÁFA-bevallás", desc: "Hónapról hónapra kézzel összegyűjteni a hiányzó adatokat, miközben az utolsó pillanatig nyitott: mennyi ÁFA-t kell fizetni?" },
-  { icon: ListX, title: "Manuális kintlévőségkezelés", desc: "Nem mindig látszik, ki mennyivel és mióta tartozik. A sablonos felszólítások hatástalanok, a késedelmes befizetések rontják a likviditást." },
-  { icon: Timer, title: "Időrabló rutinfeladatok", desc: "A számlák másolgatása, iktatása, banki tranzakciók egyeztetése, manuális adatbevitel — ahelyett, hogy a cég növekedésével tudnánk foglalkozni." },
-  { icon: LayoutDashboard, title: "Az átfogó kép hiánya", desc: "A pénzügyi adatok több rendszerben, Excel-táblában és e-mailben szóródnak szét. Nincs egyetlen felület, ahol minden összefutna." },
+  { icon: FileText, title: "Hiányzó számlák", desc: "Papíron, e-mailben, egyéb elektronikus csatornákon érkeznek: sokszor követhetetlen, hogy mi hol van, mi lett iktatva, mi vár még feldolgozásra." },
+  { icon: Calendar, title: "Várakozás a könyvelésre", desc: 'A valós pénzügyi helyzet gyakran csak hónapzárás után derül ki, amikor a számlák és banki adatok végre összeérnek - addig a cég "vakon repül".' },
+  { icon: Zap, title: "Stresszes ÁFA-bevallás", desc: "Hónapról hónapra kézzel kell összegyűjteni a hiányzó számlákat és banki adatokat, miközben a legfontosabb kérdés sokszor az utolsó pillanatig nyitott: mennyi ÁFA-t kell fizetni?" },
+  { icon: Database, title: "Manuális kintlévőségkezelés", desc: "Nem mindig látszik pontosan, ki mennyivel és mióta tartozik. A sablonos felszólítások sokszor hatástalanok, miközben a késedelmes befizetések rontják a likviditást." },
+  { icon: Clock, title: "Időrabló rutinfeladatok", desc: "A számlák másolgatása, iktatása, a banki tranzakciók tételes egyeztetése, a manuális adatbevitel sok időt igényelnek — ahelyett, hogy a vállalkozás növekedésével tudnánk foglalkozni." },
+  { icon: TrendingUp, title: "Az átfogó kép hiánya", desc: "A pénzügyi adatok több rendszerben, Excel-táblában és e-mailben szóródnak szét. Nincs egyetlen közös felület, ahol minden fontos információ összefutna. A döntésekhez gyakran hiányzik az átfogó rálátás." },
 ];
 
 const FEATURES = [
@@ -118,17 +117,14 @@ function Hero() {
       {/* full-bleed background image */}
       <img src={imgHero} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
 
-      {/* white fade from right — text panel sits on this; does NOT cover top nav area */}
+      {/* white fade overlay — responsive to protect text readability */}
       <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(to left, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.93) 35%, rgba(255,255,255,0.6) 55%, transparent 75%)",
-        }}
+        className="absolute inset-0 bg-white/90 lg:bg-transparent lg:bg-[linear-gradient(to_left,rgba(255,255,255,1)_0%,rgba(255,255,255,1)_42%,rgba(255,255,255,0)_58%,transparent_100%)]"
       />
 
-      {/* content — starts at ~2/3 horizontally */}
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 py-20 flex">
-        <div className="flex flex-col gap-7 w-full max-w-[520px] ml-[54%]">
+      {/* content — aligned to the right on desktop, centered on mobile */}
+      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 py-20 flex justify-center lg:justify-end">
+        <div className="flex flex-col gap-7 w-full max-w-[520px] pt-12 lg:pt-0">
 
           <p className="font-['Montserrat',sans-serif] font-medium text-xl lg:text-2xl leading-snug" style={{ color: C.dark }}>
             A pénzügyeid végre egy helyen.<br />Automatikusan. Valós időben.
@@ -172,81 +168,169 @@ function Hero() {
 
 function SolutionSection() {
   return (
-    <section id="megoldas" className="w-full bg-white py-20 lg:py-24">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row gap-16 items-center">
-        <div className="flex-1 flex flex-col gap-5">
-          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: "#0D9488" }}>
-            A mi megoldásunk
-          </p>
-          <h2 className="font-['Inter',sans-serif] font-bold text-3xl lg:text-4xl text-black tracking-tight leading-tight">
-            Minden pénzügy. Egy helyen. Valós időben.
-          </h2>
-          <div className="flex flex-col gap-4">
-            <p className="font-['Inter',sans-serif] font-normal text-base text-black/45 leading-relaxed">
-              Az eaisyBill egy mesterséges intelligenciával támogatott pénzügyi és kontrolling platform, amely a vállalkozás szétszórt pénzügyi adataiból egységes, naprakész és ellenőrizhető működési képet épít.
-            </p>
-            <p className="font-['Inter',sans-serif] font-normal text-base text-black/45 leading-relaxed">
-              Segít automatizálni a pénzügyi háttérfolyamatokat, minimálizálja a manuális adminisztrációt, és olyan vezetői rálátást ad, amely alapján a cég nem utólag, hanem menet közben tud dönteni, beavatkozni és tervezni.
-            </p>
-          </div>
-          <div
-            className="rounded-2xl p-5 mt-2"
-            style={{ backgroundColor: C.lightBg, borderLeft: `4px solid ${C.teal}` }}
-          >
-            <p className="font-['Montserrat',sans-serif] font-medium text-sm leading-relaxed" style={{ color: "#0d9488" }}>
-              Nem számlázóprogram. Nem csak iktatórendszer.<br />
-              Egy teljes körű pénzügyi automatizációs platform, amely a rutinmunkát kiváltja, a kontrollt pedig a cégvezető kezébe adja.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
-            {[
-              { title: "Minden egy helyen", desc: "Számlák, bank, kintlévőségek, kimutatások, bérszámfejtés, munkaidő — 360 fokos átláthatóság." },
-              { title: "Valós idejű kontroll", desc: "Bármikor látszik a cég pénzügyi helyzete, nem csak hónap végén. Friss adatok a döntésekhez." },
-              { title: "Kevesebb adminisztráció", desc: "A rutinfeladatok 80–90%-a automatizálható. A csapat az értékteremtő munkára koncentrálhat." },
-            ].map((c) => (
-              <div
-                key={c.title}
-                className="rounded-xl p-4 flex flex-col gap-2"
-                style={{ backgroundColor: "rgba(226,251,244,0.6)", border: "1px solid rgba(3,45,50,0.08)" }}
+    <section id="megoldas" className="w-full bg-white py-20 lg:py-24 relative overflow-hidden">
+      
+      {/* Desktop background image - large, positioned behind text and cards */}
+      <div className="absolute inset-0 pointer-events-none z-0 hidden lg:block">
+        <img src={imgBgLaptop} alt="" className="w-full h-full object-cover" />
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col gap-16 relative z-10">
+        
+        {/* Top block: text on left */}
+        <div className="flex flex-col lg:flex-row gap-16 items-center">
+          
+          {/* Left Column: Eyebrow, Logo, Paragraphs */}
+          <div className="flex-1 flex flex-col items-start gap-6 w-full lg:max-w-[620px]">
+            
+            {/* Eyebrow badge */}
+            <div className="inline-block rounded-full px-4 py-1.5 bg-[#FCD2CD]/40 text-[#95333C] text-xs font-semibold tracking-wider uppercase font-['Montserrat',sans-serif]">
+              A mi megoldásunk
+            </div>
+
+            {/* Logo */}
+            <div style={{ width: 220, height: 53 }} className="max-w-full">
+              <EaisybillLogo />
+            </div>
+
+            {/* Paragraphs */}
+            <div className="flex flex-col gap-5 text-black/75">
+              <p className="font-['Inter',sans-serif] font-normal text-base leading-relaxed">
+                Az eaisyBill egy mesterséges intelligenciával támogatott pénzügyi és kontrolling platform, amely a vállalkozás szétszórt pénzügyi adataiból egységes, naprakész és ellenőrizhető működési képet épít.
+              </p>
+              <p className="font-['Inter',sans-serif] font-normal text-base leading-relaxed">
+                Segít automatizálni a pénzügyi háttérfolyamatokat, minimálizálja a manuális adminisztrációt, és olyan vezetői rálátást ad, amely alapján a cég nem utólag, hanem menet közben tud dönteni, beavatkozni és tervezni.
+              </p>
+              
+              {/* Third paragraph with left border */}
+              <div 
+                className="pl-5 py-0.5 border-l-4"
+                style={{ borderLeftColor: C.main }}
               >
-                <p className="font-['Montserrat',sans-serif] font-semibold text-xs" style={{ color: C.teal }}>{c.title}</p>
-                <p className="font-['Montserrat',sans-serif] font-light text-xs leading-relaxed" style={{ color: "#5f7d95" }}>{c.desc}</p>
+                <p className="font-['Inter',sans-serif] font-normal text-base leading-relaxed">
+                  Nem számlázóprogram. Nem csak iktatórendszer. Egy teljes körű pénzügyi automatizációs platform, amely a rutinmunkát kiváltja, a kontrollt pedig a cégvezető kezébe adja.
+                </p>
               </div>
-            ))}
+            </div>
+
           </div>
+
+          {/* Inline Laptop image for mobile only */}
+          <div className="flex-1 w-full lg:hidden z-10">
+            <img src={imgBgLaptop} alt="eaisyBill dashboard mockup" className="w-full h-auto object-contain mx-auto max-w-[480px]" />
+          </div>
+
         </div>
 
-        <div className="flex-1 lg:max-w-[520px]">
-          <div
-            className="rounded-2xl overflow-hidden shadow-2xl border"
-            style={{ borderColor: "rgba(3,45,50,0.08)" }}
+        {/* Bottom block: 3 colored cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          
+          {/* Card 1 */}
+          <div 
+            className="rounded-[24px] p-8 flex flex-col items-center text-center gap-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 group cursor-pointer"
+            style={{ backgroundColor: "#0D9488" }}
           >
-            <img src={imgDash} alt="eaisyBill dashboard" className="w-full object-cover" />
+            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white/10 text-white group-hover:scale-110 transition-transform duration-300">
+              <Mail className="w-5 h-5" strokeWidth={1.5} />
+            </div>
+            <div className="flex flex-col gap-3">
+              <h3 className="font-['Inter',sans-serif] font-bold text-lg text-white leading-tight">
+                Teljes körű számlakezelés
+              </h3>
+              <p className="font-['Inter',sans-serif] font-normal text-sm leading-relaxed text-white/80">
+                E-mailekből, NAV-ból és feltöltött mappákból gyűjti a számlákat, párosítja az utalásokkal, és jelzi a hiányzó bizonylatokat.
+              </p>
+            </div>
           </div>
-          <p className="text-center font-['Montserrat',sans-serif] font-medium text-xs mt-3" style={{ color: C.accent }}>
-            Valós idejű, 360 fokos pénzügyi áttekintés
-          </p>
+
+          {/* Card 2 */}
+          <div 
+            className="rounded-[24px] p-8 flex flex-col items-center text-center gap-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 group cursor-pointer"
+            style={{ backgroundColor: "#005757" }}
+          >
+            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white/10 text-white group-hover:scale-110 transition-transform duration-300">
+              <Clock className="w-5 h-5" strokeWidth={1.5} />
+            </div>
+            <div className="flex flex-col gap-3">
+              <h3 className="font-['Inter',sans-serif] font-bold text-lg text-white leading-tight">
+                Valós idejű pénzügyi kontroll
+              </h3>
+              <p className="font-['Inter',sans-serif] font-normal text-sm leading-relaxed text-white/80">
+                Kintlévőségek, házipénztár, bérek, járulékok, projektek, költségkategóriák, munkaidő nyilvántartás — minden egy helyen, valós időben.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div 
+            className="rounded-[24px] p-8 flex flex-col items-center text-center gap-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 group cursor-pointer"
+            style={{ backgroundColor: "#032D32" }}
+          >
+            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white/10 text-white group-hover:scale-110 transition-transform duration-300">
+              <BarChart3 className="w-5 h-5" strokeWidth={1.5} />
+            </div>
+            <div className="flex flex-col gap-3">
+              <h3 className="font-['Inter',sans-serif] font-bold text-lg text-white leading-tight">
+                Átlátható cégadatok és analitika
+              </h3>
+              <p className="font-['Inter',sans-serif] font-normal text-sm leading-relaxed text-white/80">
+                ÁFA analitika, cash flow kimutatás, profitcenterek nyereségessége, költségek megoszlása — könnyebb pénzügyi döntések a cégvezető számára.
+              </p>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
   );
 }
 
 function ProblemsSection() {
+  useEffect(() => {
+    function adjustHeights() {
+      const cards = document.querySelectorAll(".problem-card-item");
+      if (cards.length === 0) return;
+      
+      // Reset heights first to measure natural height
+      cards.forEach((c) => {
+        (c as HTMLElement).style.minHeight = "0px";
+      });
+      
+      let maxHeight = 0;
+      cards.forEach((c) => {
+        const h = c.clientHeight;
+        if (h > maxHeight) maxHeight = h;
+      });
+      
+      cards.forEach((c) => {
+        (c as HTMLElement).style.minHeight = `${maxHeight}px`;
+      });
+    }
+    
+    // Run on mount with a minor timeout to ensure content has rendered, and on resize
+    const timer = setTimeout(adjustHeights, 100);
+    window.addEventListener("resize", adjustHeights);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", adjustHeights);
+    };
+  }, []);
+
   return (
     <section id="problemak" className="w-full py-20 lg:py-24" style={{ backgroundColor: "rgba(3,45,50,0.04)" }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col gap-10">
 
         {/* eyebrow + title */}
         <div className="flex flex-col gap-5 w-full">
-          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: "#0D9488" }}>
-            ami szinte minden cégnél probléma
+          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: C.main }}>
+            AMIKOR A PÉNZÜGYEK KINŐNEK AZ EXCELBŐL
           </p>
           <h2 className="font-['Inter',sans-serif] font-bold text-3xl lg:text-4xl tracking-tight leading-tight" style={{ color: C.dark }}>
             Ismerős helyzetek?
           </h2>
           <p className="font-['Inter',sans-serif] font-normal text-base leading-relaxed w-full text-black/55">
-            A cég növekedésével párhuzamosan a pénzügyek egyre több időt és figyelmet követelnek. Több számla, több bank, több partner — és egyre nehezebb átlátni, pontosan hol tart a vállalkozás. A manuális, ismétlődő feladatok hibákat generálnak és elveszik a kollégák idejét a valóban fontos munkától.
+            A cég növekedésével párhuzamosan a pénzügyek egyre több időt és figyelmet követelnek. Több számla, több bank, több partner — és egyre nehezebb átlátni, pontosan hol tart a vállalkozás. A manuális ismétlődő feladatok hibákat generálnak, és elveszik a kollégák idejét a valóban fontos, érdemi, kreatív munkától vagy azoktól a feladatoktól, melyek humán döntést igényelnek.
           </p>
         </div>
 
@@ -257,19 +341,22 @@ function ProblemsSection() {
             return (
               <div
                 key={p.title}
-                className="bg-white rounded-2xl p-6 flex flex-col gap-3 shadow-sm"
-                style={{ border: "1px solid rgba(8,36,50,0.07)" }}
+                className="problem-card-item bg-white rounded-2xl p-6 flex flex-row gap-5 shadow-sm border border-black/5 hover:-translate-y-1 hover:shadow-md hover:border-[#6ACCC3]/30 transition-all duration-300 group cursor-pointer h-full"
               >
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                    style={{ backgroundColor: C.dark }}
-                  >
-                    <Icon className="w-4 h-4" strokeWidth={1.5} style={{ color: "#3AD6B9" }} />
-                  </div>
-                  <p className="font-['Inter',sans-serif] font-semibold text-[22px]" style={{ color: C.dark }}>{p.title}</p>
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300"
+                  style={{ backgroundColor: C.dark }}
+                >
+                  <Icon className="w-5 h-5" strokeWidth={1.5} style={{ color: C.accent }} />
                 </div>
-                <p className="font-['Inter',sans-serif] font-normal text-sm leading-relaxed text-black/55">{p.desc}</p>
+                <div className="flex flex-col gap-1.5">
+                  <h3 className="font-['Inter',sans-serif] font-semibold text-lg text-black tracking-tight leading-tight">
+                    {p.title}
+                  </h3>
+                  <p className="font-['Inter',sans-serif] font-normal text-sm leading-relaxed text-black/55">
+                    {p.desc}
+                  </p>
+                </div>
               </div>
             );
           })}
@@ -297,7 +384,7 @@ function FeaturesSection() {
     <section id="funkciok" className="w-full bg-white py-20 lg:py-24">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col gap-10">
         <div className="flex flex-col gap-5">
-          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: "#0D9488" }}>
+          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: C.main }}>
             18 funkció
           </p>
           <h2 className="font-['Inter',sans-serif] font-bold text-3xl lg:text-4xl text-black tracking-tight leading-tight">
@@ -334,7 +421,7 @@ function PricingSection() {
     <section id="arak" className="w-full py-20 lg:py-24" style={{ backgroundColor: C.lightBg }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col gap-8">
         <div className="flex flex-col gap-5">
-          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: "#0D9488" }}>
+          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: C.main }}>
             Árak
           </p>
           <h2 className="font-['Inter',sans-serif] font-bold text-3xl lg:text-4xl text-black tracking-tight leading-tight">
@@ -343,7 +430,7 @@ function PricingSection() {
           <p className="font-['Inter',sans-serif] font-normal text-base text-black/45 leading-relaxed">
             Az eaisyBill csomagjai a számlamennyiség, a bankkapcsolatok és az igényelt funkciók alapján állíthatók össze. Nem kell olyan modulokért fizetni, amiket nem használ.
           </p>
-          <p className="font-['Montserrat',sans-serif] font-medium text-sm" style={{ color: "#2ea690" }}>
+          <p className="font-['Montserrat',sans-serif] font-medium text-sm" style={{ color: C.main }}>
             Alapcsomag + bővítmények (nettó árak)
           </p>
         </div>
@@ -357,7 +444,7 @@ function PricingSection() {
               <p className="font-['Montserrat',sans-serif] font-semibold text-base text-white">{PRICING_BASE.title}</p>
               <p className="font-['Montserrat',sans-serif] font-normal text-xs text-white/70 max-w-sm">{PRICING_BASE.desc}</p>
             </div>
-            <p className="font-['Montserrat',sans-serif] font-bold text-xl shrink-0 text-right" style={{ color: C.bright }}>
+            <p className="font-['Montserrat',sans-serif] font-bold text-xl shrink-0 text-right" style={{ color: C.accent }}>
               {PRICING_BASE.price}
             </p>
           </div>
@@ -369,14 +456,14 @@ function PricingSection() {
               style={{ border: `0.5px solid ${C.accent}` }}
             >
               <div className="flex flex-col gap-1">
-                <p className="font-['Montserrat',sans-serif] font-semibold text-sm" style={{ color: "#1e3a4e" }}>{p.title}</p>
+                <p className="font-['Montserrat',sans-serif] font-semibold text-sm" style={{ color: C.dark }}>{p.title}</p>
                 <p className="font-['Montserrat',sans-serif] font-normal text-xs leading-relaxed max-w-sm" style={{ color: C.bodyText }}>{p.desc}</p>
               </div>
-              <p className="font-['Montserrat',sans-serif] font-bold text-lg shrink-0 text-right" style={{ color: "#1e3a4e" }}>{p.price}</p>
+              <p className="font-['Montserrat',sans-serif] font-bold text-lg shrink-0 text-right" style={{ color: C.dark }}>{p.price}</p>
             </div>
           ))}
 
-          <p className="font-['Montserrat',sans-serif] font-medium text-xs mt-2" style={{ color: "#2ea690" }}>Havi díjak</p>
+          <p className="font-['Montserrat',sans-serif] font-medium text-xs mt-2" style={{ color: C.main }}>Havi díjak</p>
 
           {PRICING_MONTHLY.map((p) => (
             <div
@@ -385,17 +472,17 @@ function PricingSection() {
               style={{ backgroundColor: "rgba(252,210,205,0.35)", border: "0.5px solid #ffa8a8" }}
             >
               <div className="flex flex-col gap-1">
-                <p className="font-['Montserrat',sans-serif] font-medium text-sm" style={{ color: "#1e3a4e" }}>{p.title}</p>
+                <p className="font-['Montserrat',sans-serif] font-medium text-sm" style={{ color: C.dark }}>{p.title}</p>
                 <p className="font-['Montserrat',sans-serif] font-normal text-xs" style={{ color: C.bodyText }}>{p.desc}</p>
               </div>
-              <p className="font-['Montserrat',sans-serif] font-medium text-sm shrink-0 text-right whitespace-nowrap" style={{ color: "#1e3a4e" }}>{p.price}</p>
+              <p className="font-['Montserrat',sans-serif] font-medium text-sm shrink-0 text-right whitespace-nowrap" style={{ color: C.dark }}>{p.price}</p>
             </div>
           ))}
         </div>
 
-        <p className="font-['Montserrat',sans-serif] text-sm" style={{ color: "#082432" }}>
+        <p className="font-['Montserrat',sans-serif] text-sm" style={{ color: C.dark }}>
           <span className="font-semibold">Kérj demót,</span>{" "}
-          <span className="font-normal" style={{ color: "#3a5a6a" }}>és megmutatjuk, melyik konfiguráció illeszkedik a működésedhez.</span>
+          <span className="font-normal" style={{ color: C.bodyText }}>és megmutatjuk, melyik konfiguráció illeszkedik a működésedhez.</span>
         </p>
       </div>
     </section>
@@ -407,7 +494,7 @@ function FaqSection() {
     <section id="gyik" className="w-full bg-white py-20 lg:py-24">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col gap-8">
         <div className="flex flex-col gap-5">
-          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: "#0D9488" }}>
+          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: C.main }}>
             GYIK
           </p>
           <h2 className="font-['Inter',sans-serif] font-bold text-3xl lg:text-4xl text-black tracking-tight leading-tight">
@@ -429,7 +516,7 @@ function CtaSection() {
     <section id="demo" className="w-full py-20 lg:py-24" style={{ backgroundColor: C.dark }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row gap-12 items-start">
         <div className="flex-1 flex flex-col gap-6">
-          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: C.bright }}>
+          <p className="font-['Montserrat',sans-serif] font-medium text-lg uppercase" style={{ color: C.accent }}>
             Következő lépés
           </p>
           <h2 className="font-['Inter',sans-serif] font-bold text-3xl lg:text-4xl text-white tracking-tight leading-tight">
@@ -445,7 +532,7 @@ function CtaSection() {
           >
             KÉRJ DEMOT
           </button>
-          <p className="font-['Montserrat',sans-serif] font-medium text-xs" style={{ color: C.bright }}>
+          <p className="font-['Montserrat',sans-serif] font-medium text-xs" style={{ color: C.accent }}>
             eaisyBill — az AI-támogatott pénzügyi és kontrolling platform,<br />
             ami átláthatóvá teszi a céged pénzügyeit.
           </p>

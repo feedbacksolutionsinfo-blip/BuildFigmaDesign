@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import imgBoost from "@/imports/Mobile/8e5eb0f957911a1b8a542f8c02ebfbed02d9f155.png";
 
 const COLOR = "#701ab7";
-const COLOR_LIGHT = "#f3e8fb";
+const COLOR_LIGHT = "#FAF5FF";
 
 const features = [
   {
@@ -38,12 +38,12 @@ const platforms = [
 
 export default function EaisyBoost() {
   return (
-    <div className="bg-[#f6f6f6]">
+    <div className="bg-[#F8F5F8]">
       {/* Hero */}
       <section className="relative w-full overflow-hidden" style={{ backgroundColor: COLOR_LIGHT }}>
         <div className="absolute inset-0 opacity-20">
           <img src={imgBoost} alt="" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#f3e8fb] via-[#f3e8fb]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF5FF] via-[#FAF5FF]/80 to-transparent" />
         </div>
         <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 py-20 lg:py-32 flex flex-col lg:flex-row lg:items-center gap-12">
           <div className="flex flex-col gap-6 lg:max-w-xl pt-16">
@@ -97,7 +97,7 @@ export default function EaisyBoost() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             {platforms.map((p) => (
-              <div key={p.name} className="px-6 py-3 bg-[#f6f6f6] rounded-full border border-black/5 font-['Inter',sans-serif] font-semibold text-sm" style={{ color: p.color }}>
+              <div key={p.name} className="px-6 py-3 bg-[#F8F5F8] rounded-full border border-black/5 font-['Inter',sans-serif] font-semibold text-sm" style={{ color: p.color }}>
                 {p.name}
               </div>
             ))}
@@ -106,7 +106,7 @@ export default function EaisyBoost() {
       </section>
 
       {/* Features */}
-      <section className="w-full bg-[#f6f6f6] py-20 lg:py-28">
+      <section className="w-full bg-[#F8F5F8] py-20 lg:py-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="flex flex-col gap-4 max-w-2xl mb-14">
             <p className="font-['Montserrat',sans-serif] font-medium text-sm tracking-widest uppercase" style={{ color: COLOR }}>
