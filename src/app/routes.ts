@@ -1,0 +1,19 @@
+import { createBrowserRouter } from "react-router";
+import Root from "./Root";
+import Home from "./pages/Home";
+import EaisyBill from "./pages/EaisyBill";
+import EaisyDesk from "./pages/EaisyDesk";
+import EaisyBoost from "./pages/EaisyBoost";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: Root,
+    children: [
+      { index: true, Component: Home },
+      { path: "eaisy-bill", Component: EaisyBill },
+      { path: "eaisy-desk", Component: EaisyDesk },
+      { path: "eaisy-boost", Component: EaisyBoost },
+    ],
+  },
+]);
