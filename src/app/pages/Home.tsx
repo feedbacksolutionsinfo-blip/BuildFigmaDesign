@@ -330,9 +330,9 @@ function ModulesSection() {
                       FEDEZD FEL
                     </Link>
                   ) : (
-                    <button className="inline-flex items-center justify-center px-12 py-3.5 bg-black border border-black text-white rounded-full font-['Inter',sans-serif] font-light text-sm tracking-wide whitespace-nowrap hover:bg-[#1CEEE0]/20 hover:border-[#1CEEE0] hover:text-black hover:font-bold transition-colors">
-                      FEDEZD FEL
-                    </button>
+                    <span className="inline-flex items-center justify-center px-12 py-3.5 bg-black/5 border border-black/15 text-black/40 rounded-full font-['Inter',sans-serif] font-medium text-sm tracking-wide whitespace-nowrap cursor-default select-none">
+                      HAMAROSAN
+                    </span>
                   )}
                 </div>
               </div>

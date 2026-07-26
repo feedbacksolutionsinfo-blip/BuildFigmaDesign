@@ -32,7 +32,6 @@ const products = [
   { name: "eaisyBill", path: "/eaisy-bill", color: "#05512a", icon: FileText, desc: "AI-támogatott pénzügyi és kontrolling platform" },
   { name: "eaisyDesk", path: "/eaisy-desk", color: "#186d98", icon: Headphones, desc: "Omnichannel AI ügyfélkommunikáció" },
   { name: "eaisyBoost", path: "/eaisy-boost", color: "#701ab7", icon: Megaphone, desc: "Social media és hirdetéskezelés AI-val" },
-  { name: "eaisyDocs", path: "#", color: "#150f87", icon: FolderOpen, desc: "Automatikus iktatás és dokumentumkezelés" },
 ];
 
 const DEMO_PRODUCTS = ["Mind", "eaisyBill", "eaisyDesk", "eaisyBoost", "eaisyDocs", "eaisyCRM", "eaisyHR"];
