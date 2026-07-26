@@ -28,7 +28,7 @@ function Hero() {
       </div>
 
       {/* rectangular overlay: white 50%, 1px #C4C4C4 border (no top edge), 20px rounded bottom corners */}
-      <div className="absolute inset-x-0 top-0 px-6 lg:px-10 2xl:px-0 flex justify-center pointer-events-none">
+      <div className="absolute inset-x-0 top-0 px-0 lg:px-10 2xl:px-0 flex justify-center pointer-events-none">
         <div className="w-full max-w-[1560px] h-[962px] bg-white/50 border border-t-0 border-[#C4C4C4] rounded-b-[20px]" />
       </div>
 
@@ -266,15 +266,16 @@ function ModulesSection() {
 
         {/* ── filter — container-wide ── */}
         <div className="flex flex-col gap-8 w-full">
-          {/* filter bar — full container width, black segmented pill control */}
-          <div className="w-full flex items-center justify-between gap-1 p-1.5 rounded-full bg-black overflow-x-auto">
+          {/* filter bar — full container width, black segmented pill control;
+              on mobile wraps into a 2-col grid so every option is visible (no hidden scroll) */}
+          <div className="w-full flex flex-wrap lg:flex-nowrap items-center justify-between gap-1.5 lg:gap-1 p-1.5 rounded-[24px] lg:rounded-full bg-black">
             {FILTER_TABS.map(({ label, id }) => {
               const isActive = id === "all" ? showAll : active.has(id);
               return (
                 <button
                   key={id}
                   onClick={() => toggleFilter(id)}
-                  className={`flex-1 px-4 py-2.5 rounded-full border text-sm font-['Inter',sans-serif] tracking-tight transition-all whitespace-nowrap text-center ${
+                  className={`${id === "all" ? "basis-full lg:basis-auto" : "basis-[calc(50%-3px)] lg:basis-auto"} lg:flex-1 px-3 lg:px-4 py-2.5 rounded-full border text-[13px] lg:text-sm font-['Inter',sans-serif] tracking-tight transition-all whitespace-nowrap text-center ${
                     isActive
                       ? "bg-white text-black font-bold border-[#1CEEE0]"
                       : "text-white font-normal border-transparent hover:text-[#1CEEE0] hover:border-[#1CEEE0]"

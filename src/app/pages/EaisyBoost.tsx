@@ -135,7 +135,7 @@ function Hero() {
           </p>
 
           {/* logo — unified 100px height across product pages */}
-          <img src={imgLogo} alt="eaisyBoost" className="h-[100px] w-auto max-w-full self-start my-6" />
+          <img src={imgLogo} alt="eaisyBoost" className="h-auto max-h-[100px] w-auto max-w-full object-contain self-start my-6" />
 
           <p className="font-['Inter',sans-serif] font-normal text-base leading-relaxed text-black/55">
             AI-támogatott tartalomkészítés, kampánykezelés és márka-audit egyetlen platformon.
@@ -582,9 +582,11 @@ function FeaturesSection() {
     if (dragStartX.current == null) return;
     if (x != null) {
       const dx = x - dragStartX.current;
-      if (Math.abs(dx) > 40) {
+      if (Math.abs(dx) > 24) {
         swiped.current = true;
-        go(dx < 0 ? 1 : -1);
+        // longer swipes skip multiple cards — no big mandatory flick needed
+        const steps = Math.max(1, Math.round(Math.abs(dx) / (metrics.step || 240)));
+        go(dx < 0 ? steps : -steps);
       }
     }
     dragStartX.current = null;
