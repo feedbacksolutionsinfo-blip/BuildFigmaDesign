@@ -9,7 +9,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/((?!assets/|favicon|og-image|apple-touch-icon|robots.txt|sitemap.xml|eaisy-bill|eaisy-desk|eaisy-boost).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|assets/|favicon|og-image|apple-touch-icon|robots.txt|sitemap.xml|eaisy-bill|eaisy-desk|eaisy-boost).*)", "destination": "/index.html" }
   ],
   "headers": [
     {

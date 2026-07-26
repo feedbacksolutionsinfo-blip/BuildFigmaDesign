@@ -51,7 +51,37 @@ const DEMO_PRODUCT_META: Record<string, { icon: typeof FileText; color: string; 
 function ContactModal({ onClose }: { onClose: () => void }) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [form, setForm] = useState({ nev: "", telefon: "", email: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  async function submit() {
+    setErrorMsg("");
+    if (form.nev.trim().length < 2) {
+      setErrorMsg("Kérlek, add meg a nevedet.");
+      return;
+    }
+    if (!form.telefon.trim() && !form.email.trim()) {
+      setErrorMsg("Adj meg legalább egy elérhetőséget (telefon vagy e-mail).");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/send-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, products: Array.from(selected) }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Ismeretlen hiba");
+      }
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "A küldés nem sikerült. Próbáld újra!");
+    }
+  }
 
   function toggle(product: string) {
     setSelected((prev) => {
@@ -190,11 +220,24 @@ function ContactModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* submit — same turquoise hover as the hero CTAs */}
-          <button
-            className="w-full py-4 bg-black border border-black text-white rounded-full font-['Inter',sans-serif] font-light text-sm tracking-wide hover:bg-[#1CEEE0]/20 hover:border-[#1CEEE0] hover:text-black hover:font-bold transition-colors"
-          >
-            KÉRJ DEMOT
-          </button>
+          {status === "success" ? (
+            <div className="w-full py-4 bg-[#1CEEE0]/20 border border-[#1CEEE0] text-black rounded-full font-['Inter',sans-serif] font-bold text-sm tracking-wide text-center">
+              KÖSZÖNJÜK! HAMAROSAN JELENTKEZÜNK.
+            </div>
+          ) : (
+            <button
+              onClick={submit}
+              disabled={status === "sending"}
+              className="w-full py-4 bg-black border border-black text-white rounded-full font-['Inter',sans-serif] font-light text-sm tracking-wide hover:bg-[#1CEEE0]/20 hover:border-[#1CEEE0] hover:text-black hover:font-bold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {status === "sending" ? "KÜLDÉS..." : "KÉRJ DEMOT"}
+            </button>
+          )}
+          {errorMsg && (
+            <p className="font-['Inter',sans-serif] text-xs text-[#F26B77] text-center -mt-2">
+              {errorMsg}
+            </p>
+          )}
 
           {/* fine print */}
           <div className="flex flex-col gap-3 pt-1 border-t border-black/6">
