@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Outlet, Link, useLocation } from "react-router";
-import { Plus, X, Check, Home } from "lucide-react";
+import { Plus, X, Check, Home, FileText, Headphones, Megaphone, FolderOpen, ArrowUpRight, Users, Briefcase, LayoutGrid } from "lucide-react";
 import svgPaths from "@/imports/Mobile/svg-5uu58tfhk2";
 
 export function EaisyLogo({ dark = false }: { dark?: boolean }) {
@@ -29,13 +29,24 @@ export function openDemoModal() {
 }
 
 const products = [
-  { name: "eaisyBill", path: "/eaisy-bill", color: "#05512a" },
-  { name: "eaisyDesk", path: "/eaisy-desk", color: "#186d98" },
-  { name: "eaisyBoost", path: "/eaisy-boost", color: "#701ab7" },
-  { name: "eaisyDocs", path: "#", color: "#150f87" },
+  { name: "eaisyBill", path: "/eaisy-bill", color: "#05512a", icon: FileText, desc: "AI-támogatott pénzügyi és kontrolling platform" },
+  { name: "eaisyDesk", path: "/eaisy-desk", color: "#186d98", icon: Headphones, desc: "Omnichannel AI ügyfélkommunikáció" },
+  { name: "eaisyBoost", path: "/eaisy-boost", color: "#701ab7", icon: Megaphone, desc: "Social media és hirdetéskezelés AI-val" },
+  { name: "eaisyDocs", path: "#", color: "#150f87", icon: FolderOpen, desc: "Automatikus iktatás és dokumentumkezelés" },
 ];
 
 const DEMO_PRODUCTS = ["Mind", "eaisyBill", "eaisyDesk", "eaisyBoost", "eaisyDocs", "eaisyCRM", "eaisyHR"];
+
+// demo modal product metadata — icon + short description, like the nav dropdown
+const DEMO_PRODUCT_META: Record<string, { icon: typeof FileText; color: string; desc: string }> = {
+  Mind: { icon: LayoutGrid, color: "#000000", desc: "Az összes eaisy megoldás érdekel" },
+  eaisyBill: { icon: FileText, color: "#05512a", desc: "AI-támogatott pénzügyi és kontrolling platform" },
+  eaisyDesk: { icon: Headphones, color: "#186d98", desc: "Omnichannel AI ügyfélkommunikáció" },
+  eaisyBoost: { icon: Megaphone, color: "#701ab7", desc: "Social media és hirdetéskezelés AI-val" },
+  eaisyDocs: { icon: FolderOpen, color: "#150f87", desc: "Automatikus iktatás és dokumentumkezelés" },
+  eaisyCRM: { icon: Users, color: "#b70071", desc: "Ügyfél- és értékesítéskezelés egy helyen" },
+  eaisyHR: { icon: Briefcase, color: "#c74c71", desc: "AI-támogatott HR-adminisztráció" },
+};
 
 function ContactModal({ onClose }: { onClose: () => void }) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -108,33 +119,53 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
         <div className="px-8 py-7 flex flex-col gap-8">
 
-          {/* checkboxes */}
+          {/* product cards — icon + name + short description, like the nav dropdown */}
           <div className="flex flex-col gap-4">
             <p className="font-['Inter',sans-serif] font-medium text-sm text-black/50">
               Jelöld meg, mely szoftverek érdekelnek:
             </p>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {DEMO_PRODUCTS.map((p) => {
                 const checked = selected.has(p);
+                const meta = DEMO_PRODUCT_META[p];
+                const Icon = meta.icon;
                 return (
-                  <label
+                  <button
                     key={p}
-                    className="flex items-center gap-3 cursor-pointer group select-none"
+                    type="button"
                     onClick={() => toggle(p)}
+                    className={`flex items-center gap-3.5 px-4 py-3.5 rounded-2xl border-2 text-left transition-all duration-200 select-none ${
+                      p === "Mind" ? "sm:col-span-2" : ""
+                    } ${
+                      checked
+                        ? "border-black bg-black/[0.03]"
+                        : "border-black/10 hover:border-black/25"
+                    }`}
                   >
+                    <span
+                      className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white"
+                      style={{ backgroundColor: meta.color }}
+                    >
+                      <Icon className="w-4.5 h-4.5" strokeWidth={1.5} />
+                    </span>
+                    <span className="flex flex-col gap-0.5 min-w-0 flex-1">
+                      <span className={`font-['Inter',sans-serif] text-sm ${checked ? "font-bold text-black" : "font-semibold text-black"}`}>
+                        {p}
+                      </span>
+                      <span className="font-['Inter',sans-serif] font-normal text-xs text-black/55 leading-snug">
+                        {meta.desc}
+                      </span>
+                    </span>
                     <span
                       className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-colors ${
                         checked
                           ? "bg-black border-black"
-                          : "border-black/20 group-hover:border-black/40"
+                          : "border-black/20"
                       }`}
                     >
                       {checked && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
                     </span>
-                    <span className={`font-['Inter',sans-serif] text-sm ${checked ? "font-semibold text-black" : "font-normal text-black/70"}`}>
-                      {p}
-                    </span>
-                  </label>
+                  </button>
                 );
               })}
             </div>
@@ -158,9 +189,9 @@ function ContactModal({ onClose }: { onClose: () => void }) {
             ))}
           </div>
 
-          {/* submit */}
+          {/* submit — same turquoise hover as the hero CTAs */}
           <button
-            className="w-full py-4 bg-black text-white rounded-full font-['Montserrat',sans-serif] font-medium text-sm tracking-wide hover:bg-black/80 transition-colors"
+            className="w-full py-4 bg-black border border-black text-white rounded-full font-['Inter',sans-serif] font-light text-sm tracking-wide hover:bg-[#1CEEE0]/20 hover:border-[#1CEEE0] hover:text-black hover:font-bold transition-colors"
           >
             KÉRJ DEMOT
           </button>
@@ -189,7 +220,28 @@ const PRODUCT_NAV_ITEMS: Record<string, { label: string; href: string }[]> = {
     { label: "Előnyök", href: "#elonyok" },
     { label: "GYIK", href: "#gyik" },
   ],
+  "/eaisy-desk": [
+    { label: "A probléma", href: "#problemak" },
+    { label: "A megoldás", href: "#megoldas" },
+    { label: "Funkciók", href: "#funkciok" },
+    { label: "Előnyök", href: "#elonyok" },
+    { label: "GYIK", href: "#gyik" },
+  ],
+  "/eaisy-boost": [
+    { label: "A probléma", href: "#problemak" },
+    { label: "A megoldás", href: "#megoldas" },
+    { label: "Funkciók", href: "#funkciok" },
+    { label: "Előnyök", href: "#elonyok" },
+    { label: "GYIK", href: "#gyik" },
+  ],
 };
+
+const UMBRELLA_NAV_ITEMS = [
+  { label: "Az eaisy-ről", href: "#mi-az-eaisy" },
+  { label: "Termékek", href: "#termekek" },
+  { label: "Rólunk", href: "#rolunk" },
+  { label: "Kapcsolat", href: "#kapcsolat" },
+];
 
 function SiteHeader({ onDemoOpen }: { onDemoOpen: () => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -197,6 +249,45 @@ function SiteHeader({ onDemoOpen }: { onDemoOpen: () => void }) {
   const location = useLocation();
   const productNav = PRODUCT_NAV_ITEMS[location.pathname];
   const isProductPage = Boolean(productNav);
+  const navItems = isProductPage ? productNav : UMBRELLA_NAV_ITEMS;
+  const [activeHref, setActiveHref] = useState("");
+
+  // scroll-spy: highlight the nav pill of the section currently in view
+  useEffect(() => {
+    setActiveHref("");
+    const targets = navItems
+      .map(({ href }) => document.getElementById(href.slice(1)))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (targets.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveHref(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    targets.forEach((t) => observer.observe(t));
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  const navLinkCls = (href: string) =>
+    `inline-flex items-center justify-center h-[45px] px-4 rounded-full border font-['Inter',sans-serif] text-sm whitespace-nowrap transition-all duration-200 ${
+      activeHref === href
+        ? "border-[#1CEEE0] bg-[#1CEEE0]/20 text-black font-semibold"
+        : "border-transparent text-black/55 font-medium hover:text-black hover:border-[#1CEEE0] hover:bg-[#1CEEE0]/20"
+    }`;
+
+  // navbar accents: cyan selection everywhere (bill home icon → coral, desk → magenta, boost → yellow)
+  const isDeskPage = location.pathname === "/eaisy-desk";
+  const isBoostPage = location.pathname === "/eaisy-boost";
+  const accentHover = "hover:bg-[#1CEEE0]/20 hover:border-[#1CEEE0] hover:text-black";
+  const homeIconCls = isBoostPage
+    ? "border-black/25 text-black/45 hover:bg-[#FACC15] hover:text-[#3B0764] hover:border-[#3B0764]"
+    : `${
+        isDeskPage ? "hover:bg-[#C43284]" : "hover:bg-[#F26B77]"
+      } border-black/25 text-black/45 hover:text-white hover:border-white`;
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -210,100 +301,132 @@ function SiteHeader({ onDemoOpen }: { onDemoOpen: () => void }) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-6 flex items-center justify-between">
+      <div className="w-full max-w-[1560px] mx-auto px-6 lg:px-10 2xl:px-0 py-6">
 
-        {/* Logo */}
-        <Link to="/" className="flex items-center h-7 shrink-0">
-          <EaisyLogo />
-        </Link>
+        {/* Single navbar pill: logo at left edge, nav items clustered, plus icon at right edge */}
+        <div
+          className="flex items-center justify-between gap-6 rounded-[40px] border border-[#DDDDDD] bg-white shadow-[0_16px_32px_-4px_rgba(12,12,13,0.10)] max-w-[860px] mx-auto pl-6 pr-2 py-2"
+        >
 
-        {/* Nav pill — home vs product page */}
-        {isProductPage ? (
-          <nav
-            className="hidden md:flex items-center justify-center gap-[32px] py-2.5 rounded-[40px] shadow-[0px_0.5px_2.9px_0px_rgba(0,0,0,0.25)] min-h-[48px]"
-            style={{ backgroundColor: "rgba(0,0,0,0.05)", backdropFilter: "blur(8px)", paddingLeft: 24, paddingRight: 24 }}
-          >
-            <Link
-              to="/"
-              className="flex items-center justify-center w-7 h-7 rounded-full border border-black text-black/55 hover:text-white hover:bg-[#F26B77] hover:border-[#F26B77] transition-colors shrink-0"
-              aria-label="Vissza a főoldalra"
-            >
-              <Home className="w-3.5 h-3.5" strokeWidth={1.5} />
-            </Link>
-            <span className="w-px h-4 bg-black/15 shrink-0" />
-            {productNav.map(({ label, href }) => (
-              <a
-                key={href}
-                href={href}
-                className="font-['Montserrat',sans-serif] font-medium text-sm text-black/55 hover:text-black transition-colors whitespace-nowrap"
+          {/* Logo */}
+          <Link to="/" className="flex items-center shrink-0 h-6">
+            <EaisyLogo />
+          </Link>
+
+          {/* Nav — home vs product page */}
+          {isProductPage ? (
+            <nav className="hidden md:flex items-center justify-center gap-1">
+              <Link
+                to="/"
+                className={`flex items-center justify-center w-7 h-7 rounded-full border transition-colors shrink-0 ${homeIconCls}`}
+                aria-label="Vissza a főoldalra"
               >
-                {label}
-              </a>
-            ))}
-          </nav>
-        ) : (
-          <nav
-            className="hidden md:flex items-center justify-center gap-[40px] py-2.5 rounded-[40px] shadow-[0px_0.5px_2.9px_0px_rgba(0,0,0,0.25)] min-h-[48px]"
-            style={{ backgroundColor: "rgba(0,0,0,0.05)", backdropFilter: "blur(8px)", paddingLeft: 24, paddingRight: 24 }}
-          >
-            {[
-              { label: "eaisy", href: "#mi-az-eaisy" },
-              { label: "Termékek", href: "#termekek" },
-              { label: "Rólunk", href: "#rolunk" },
-              { label: "Kapcsolat", href: "#kapcsolat" },
-            ].map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className="font-['Montserrat',sans-serif] font-medium text-sm text-black/55 hover:text-black transition-colors whitespace-nowrap"
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-        )}
+                <Home className="w-3.5 h-3.5" strokeWidth={1.5} />
+              </Link>
+              <span className="w-px h-4 bg-black/15 shrink-0 mx-3" />
+              {productNav.map(({ label, href }) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setActiveHref(href)}
+                  className={navLinkCls(href)}
+                >
+                  {label}
+                </a>
+              ))}
+            </nav>
+          ) : (
+            <nav className="hidden md:flex items-center justify-center gap-1">
+              {UMBRELLA_NAV_ITEMS.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  onClick={() => setActiveHref(href)}
+                  className={navLinkCls(href)}
+                >
+                  {label}
+                </a>
+              ))}
+            </nav>
+          )}
 
-        {/* Plus icon — product dropdown */}
-        <div className="relative" ref={menuRef}>
+          {/* Plus icon — product dropdown */}
+          <div className="relative" ref={menuRef}>
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white transition-transform hover:scale-105 active:scale-95"
+            className={`w-[45px] h-[45px] rounded-full bg-black flex items-center justify-center text-white border border-transparent transition-all hover:scale-105 active:scale-95 ${accentHover}`}
             aria-label="Termékek megnyitása"
           >
-            {menuOpen ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+            {menuOpen ? <X className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
           </button>
 
           {menuOpen && (
-            <div className="absolute right-0 top-14 bg-white rounded-2xl shadow-2xl border border-black/5 overflow-hidden min-w-[200px]">
-              <p className="px-5 pt-4 pb-2 text-[10px] font-['Montserrat',sans-serif] font-medium text-black/30 tracking-widest uppercase">
-                Termékek
-              </p>
-              {products.map((p) => (
-                <Link
-                  key={p.name}
-                  to={p.path}
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-3 px-5 py-3 hover:bg-black/3 transition-colors"
-                >
-                  <span
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{ backgroundColor: p.color }}
-                  />
-                  <span className="font-['Inter',sans-serif] font-medium text-sm text-black">
-                    {p.name}
-                  </span>
-                </Link>
-              ))}
-              <div className="px-5 py-4 border-t border-black/5">
+            <div
+              className="absolute right-0 top-16 w-[340px] rounded-3xl border border-black/5 p-3 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.25)]"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.92)",
+                backdropFilter: "blur(8px)",
+                animation: "menu-pop 0.25s cubic-bezier(0.22,1,0.36,1) both",
+                transformOrigin: "top right",
+              }}
+            >
+              <style>{`
+                @keyframes menu-pop {
+                  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+                  to { opacity: 1; transform: translateY(0) scale(1); }
+                }
+              `}</style>
+
+              <div className="px-3 pt-2 pb-3 mb-1 border-b border-black/5">
+                <p className="text-[10px] font-['Inter',sans-serif] font-medium text-black/40 tracking-widest uppercase">
+                  Termékek
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                {products.map((p) => {
+                  const Icon = p.icon;
+                  return (
+                    <Link
+                      key={p.name}
+                      to={p.path}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-4 px-3 py-3 rounded-2xl hover:bg-black/5 transition-colors group"
+                    >
+                      <span
+                        className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 text-white group-hover:scale-110 transition-transform duration-300"
+                        style={{ backgroundColor: p.color }}
+                      >
+                        <Icon className="w-5 h-5" strokeWidth={1.5} />
+                      </span>
+                      <span className="flex flex-col gap-0.5 min-w-0">
+                        <span className="font-['Inter',sans-serif] font-semibold text-sm text-black">
+                          {p.name}
+                        </span>
+                        <span className="font-['Inter',sans-serif] font-normal text-xs text-black/55 leading-snug">
+                          {p.desc}
+                        </span>
+                      </span>
+                      <ArrowUpRight
+                        className="w-4 h-4 ml-auto shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                        style={{ color: p.color }}
+                      />
+                    </Link>
+                  );
+                })}
+              </div>
+
+              <div className="pt-3 mt-1 border-t border-black/5">
                 <button
                   onClick={() => { setMenuOpen(false); onDemoOpen(); }}
-                  className="block w-full text-center py-2.5 bg-black text-white rounded-full font-['Montserrat',sans-serif] font-medium text-xs tracking-wide hover:bg-black/80 transition-colors"
+                  className="block w-full text-center py-3 bg-black border border-black text-white rounded-full font-['Inter',sans-serif] font-medium text-xs tracking-widest hover:bg-[#1CEEE0]/20 hover:border-[#1CEEE0] hover:text-black hover:font-bold transition-colors"
                 >
                   KÉRJ DEMOT
                 </button>
               </div>
             </div>
           )}
+        </div>
         </div>
 
       </div>
@@ -314,23 +437,41 @@ function SiteHeader({ onDemoOpen }: { onDemoOpen: () => void }) {
 function SiteFooter() {
   return (
     <footer className="bg-[#082432] text-white" id="kapcsolat">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
-        <div className="border-t border-white/10 pt-16 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12">
-          <div className="flex flex-col gap-3">
-            <div className="h-6">
+      <div className="w-full max-w-[1376px] mx-auto px-6 lg:px-10 2xl:px-0 py-16 flex flex-col gap-14">
+
+        {/* ── highlighted contact block, centered ── */}
+        <div className="flex flex-col items-center text-center gap-5 rounded-[30px] border border-[#1CEEE0]/40 bg-white/5 px-8 py-10 lg:py-12">
+          <p className="text-xs font-['Inter',sans-serif] font-medium text-[#1CEEE0] uppercase tracking-widest">
+            Kapcsolat
+          </p>
+          <p className="font-['Inter',sans-serif] font-bold text-2xl lg:text-3xl tracking-tight">
+            Írj nekünk!
+          </p>
+          <p className="text-sm lg:text-base font-['Inter',sans-serif] text-white/60 max-w-md leading-relaxed">
+            Kérdésed van az eaisy moduljairól, vagy demót kérnél? Válaszolunk egy munkanapon belül.
+          </p>
+          <a
+            href="mailto:hello@thinkai.hu"
+            className="inline-flex items-center justify-center px-12 py-3.5 bg-white border border-white text-black rounded-full font-['Inter',sans-serif] font-light text-sm tracking-wide whitespace-nowrap hover:bg-[#1CEEE0]/20 hover:border-[#1CEEE0] hover:text-black hover:font-bold transition-colors"
+          >
+            hello@thinkai.hu
+          </a>
+        </div>
+
+        {/* ── columns ── */}
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12">
+          <div className="flex flex-col gap-4">
+            <div className="h-9">
               <EaisyLogo dark />
             </div>
-            <p className="text-sm font-['Inter',sans-serif] font-semibold text-white tracking-wide">
-              THINK AI Kft.
-            </p>
-            <p className="text-sm font-['Inter',sans-serif] text-white/60 max-w-xs leading-relaxed">
+            <p className="text-base lg:text-lg font-['Inter',sans-serif] text-white/60 max-w-xs leading-relaxed">
               The future was yesterday. We are tomorrow.
             </p>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-12">
+          <div className="flex flex-col sm:flex-row gap-12">
             <nav className="flex flex-col gap-3">
-              <p className="text-xs font-['Montserrat',sans-serif] font-medium text-white/40 uppercase tracking-widest">
+              <p className="text-xs font-['Inter',sans-serif] font-medium text-white/40 uppercase tracking-widest">
                 Navigáció
               </p>
               {["eaisy", "Termékek", "Rólunk"].map((item) => (
@@ -340,7 +481,7 @@ function SiteFooter() {
               ))}
             </nav>
             <nav className="flex flex-col gap-3">
-              <p className="text-xs font-['Montserrat',sans-serif] font-medium text-white/40 uppercase tracking-widest">
+              <p className="text-xs font-['Inter',sans-serif] font-medium text-white/40 uppercase tracking-widest">
                 Termékek
               </p>
               {products.map((p) => (
@@ -349,19 +490,10 @@ function SiteFooter() {
                 </Link>
               ))}
             </nav>
-            <div className="flex flex-col gap-3">
-              <p className="text-xs font-['Montserrat',sans-serif] font-medium text-white/40 uppercase tracking-widest">
-                Kapcsolat
-              </p>
-              <p className="text-sm font-['Inter',sans-serif] font-semibold text-white">ÍRJ NEKÜNK!</p>
-              <a href="mailto:hello@thinkai.hu" className="text-sm font-['Inter',sans-serif] text-white/77 hover:text-white transition-colors">
-                hello@thinkai.hu
-              </a>
-            </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-xs font-['Inter',sans-serif] text-white/30">
             © 2024 THINK AI Kft. Minden jog fenntartva.
           </p>
@@ -376,6 +508,7 @@ function SiteFooter() {
 
 export default function Root() {
   const [demoOpen, setDemoOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     function onOpen() { setDemoOpen(true); }
@@ -383,8 +516,20 @@ export default function Root() {
     return () => window.removeEventListener("open-demo-modal", onOpen);
   }, []);
 
+  // on page change always land at the top (header + hero); hash links scroll to their section
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.getElementById(location.hash.slice(1));
+      if (el) {
+        el.scrollIntoView();
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
+
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#F8F5F8]">
+    <div className="relative min-h-screen flex flex-col bg-[#F3F3F4]">
       <SiteHeader onDemoOpen={() => setDemoOpen(true)} />
       <main className="flex-1">
         <Outlet />
