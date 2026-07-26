@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, type TransitionEvent, type PointerEvent } from "react";
 import { Layers, Timer, Shuffle, EyeOff, Palette, Users, ThumbsUp, TrendingUp, Sparkles, Mail, Fingerprint, CalendarDays, CalendarClock, BarChart3, Briefcase, Share2, Clock, ChevronDown, CheckCircle2, Megaphone } from "lucide-react";
-import imgHero from "@/imports/eaisy-boost-hero.png";
-import imgFeaturesBg from "@/imports/eaisy-boost-features-bg.jpg";
+import imgHero from "@/imports/eaisy-boost-hero.webp";
+import imgFeaturesBg from "@/imports/eaisy-boost-features-bg.webp";
 import imgLogo from "@/imports/EaisyBoostNyito/eaisyboost.png";
 import { openDemoModal } from "@/app/Root";
+import { Seo, organizationSchema, softwareAppSchema, faqSchema } from "@/app/components/Seo";
 
 const C = {
   dark: "#3B0764",        // Purple 950
@@ -117,6 +118,8 @@ function Hero() {
       <img
         src={imgHero}
         alt=""
+        decoding="async"
+        fetchPriority="high"
         className="absolute inset-0 w-full h-full object-cover object-left"
       />
 
@@ -599,6 +602,8 @@ function FeaturesSection() {
       <img
         src={imgFeaturesBg}
         alt=""
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <div
@@ -913,6 +918,8 @@ function CtaSection() {
       <img
         src={imgFeaturesBg}
         alt=""
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <div
@@ -1008,6 +1015,20 @@ function StickyDemoCta() {
 export default function EaisyBoost() {
   return (
     <div>
+      <Seo
+        title="eaisyBoost – AI social media és e-mail marketing | eaisy"
+        description="Az eaisyBoost AI marketingeszköz: social media kezelés, e-mail kampányok, márka-audit és analitika egy platformon – nagy marketingcsapat nélkül is működő marketing."
+        path="/eaisy-boost"
+        jsonLd={[
+          organizationSchema(),
+          softwareAppSchema({
+            name: "eaisyBoost",
+            description: "AI-támogatott marketing platform: social media kezelés, e-mail kampányok és márkaépítés egy helyen.",
+            path: "/eaisy-boost",
+          }),
+          faqSchema(FAQS),
+        ]}
+      />
       <Hero />
       <ProblemsSection />
       <SolutionSection />

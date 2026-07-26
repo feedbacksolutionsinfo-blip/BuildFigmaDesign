@@ -2,15 +2,16 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { Sparkles, Fingerprint, Rocket } from "lucide-react";
 import { openDemoModal } from "@/app/Root";
+import { Seo, organizationSchema, websiteSchema } from "@/app/components/Seo";
 import Vector from "@/imports/Vector/index";
-import imgHero from "@/imports/eaisy-hero-final.png";
-import imgGearsBg from "@/imports/eaisy-gears-bg.png";
-import imgBill from "@/imports/Mobile/b9f75c0a78805e573fd7ba6264690ff7fc119464.png";
-import imgDesk from "@/imports/Mobile/faf98039103ec19a5a8cea4bb3b15bb435e98f27.png";
-import imgCRM from "@/imports/Mobile/0ed95b9c10d6f138aa05178ee56582c704d965a2.png";
-import imgBoost from "@/imports/Mobile/8e5eb0f957911a1b8a542f8c02ebfbed02d9f155.png";
-import imgDocs from "@/imports/Mobile/84645b8a5ef11283d6e6443763bb76a2b8eab618.png";
-import imgHR from "@/imports/Mobile/bfdac52013fd058c16676a0d83a329a0a460bdb9.png";
+import imgHero from "@/imports/eaisy-hero-final.webp";
+import imgGearsBg from "@/imports/eaisy-gears-bg.webp";
+import imgBill from "@/imports/Mobile/b9f75c0a78805e573fd7ba6264690ff7fc119464.webp";
+import imgDesk from "@/imports/Mobile/faf98039103ec19a5a8cea4bb3b15bb435e98f27.webp";
+import imgCRM from "@/imports/Mobile/0ed95b9c10d6f138aa05178ee56582c704d965a2.webp";
+import imgBoost from "@/imports/Mobile/8e5eb0f957911a1b8a542f8c02ebfbed02d9f155.webp";
+import imgDocs from "@/imports/Mobile/84645b8a5ef11283d6e6443763bb76a2b8eab618.webp";
+import imgHR from "@/imports/Mobile/bfdac52013fd058c16676a0d83a329a0a460bdb9.webp";
 
 function Hero() {
   return (
@@ -20,6 +21,8 @@ function Hero() {
         <img
           alt=""
           src={imgHero}
+          decoding="async"
+          fetchPriority="high"
           className="w-full h-full object-cover object-center translate-y-[44px]"
         />
       </div>
@@ -106,6 +109,8 @@ function WhatIsEaisy() {
           <img
             alt=""
             src={imgGearsBg}
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
           <div className="relative flex flex-col justify-center gap-5 w-full h-full px-8 py-14 lg:px-16 lg:py-0">
@@ -294,7 +299,7 @@ function ModulesSection() {
             >
               {/* image with category pill */}
               <div className="relative w-full aspect-[3/2] rounded-[20px] overflow-hidden shrink-0">
-                <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                <img src={p.image} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 <span
                   className="absolute top-3 right-3 px-3.5 py-1.5 rounded-full font-['Inter',sans-serif] font-medium text-xs text-white"
                   style={{ backgroundColor: p.color }}
@@ -375,6 +380,12 @@ function AboutSection() {
 export default function Home() {
   return (
     <>
+      <Seo
+        title="eaisy – AI-támogatott üzleti megoldások KKV-knak"
+        description="AI-támogatott szoftverek kis- és középvállalkozásoknak – a pénzügytől az ügyfélszolgálaton át a marketingig. Ismerd meg az eaisyBill, eaisyDesk és eaisyBoost megoldásokat!"
+        path="/"
+        jsonLd={[organizationSchema(), websiteSchema()]}
+      />
       <Hero />
       <HeroValueCards />
       <WhatIsEaisy />

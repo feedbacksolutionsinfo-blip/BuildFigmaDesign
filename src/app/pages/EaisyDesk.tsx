@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, type TransitionEvent, type PointerEvent } from "react";
 import { Phone, Mail, Calendar, UserX, Clock, BarChart3, Briefcase, Users, Headphones, Headset, Megaphone, MessagesSquare, Mic, CalendarCheck, Tags, CheckCircle2, Inbox, Heart, ChevronDown } from "lucide-react";
-import imgHero from "@/imports/EaisyDeskNyito/A_recepcios.png";
+import imgHero from "@/imports/EaisyDeskNyito/A_recepcios.webp";
 import imgLogo from "@/imports/EaisyDeskNyito/eaisydesk.png";
-import imgFeaturesBg from "@/imports/EaisyDeskNyito/bg-funkciok.jpg";
+import imgFeaturesBg from "@/imports/EaisyDeskNyito/bg-funkciok.webp";
 import { openDemoModal } from "@/app/Root";
+import { Seo, organizationSchema, softwareAppSchema, faqSchema } from "@/app/components/Seo";
 
 const C = {
   dark: "#082432",       // Cyan 900
@@ -136,7 +137,7 @@ function Hero() {
         }
       `}</style>
       {/* full-bleed background image */}
-      <img src={imgHero} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
+      <img src={imgHero} alt="" decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-center" />
 
       {/* white fade overlay — responsive to protect text readability */}
       <div
@@ -625,6 +626,8 @@ function FeaturesSection() {
       <img
         src={imgFeaturesBg}
         alt=""
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <div
@@ -914,6 +917,8 @@ function CtaSection() {
       <img
         src={imgFeaturesBg}
         alt=""
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <div
@@ -1009,6 +1014,20 @@ function StickyDemoCta() {
 export default function EaisyDesk() {
   return (
     <div>
+      <Seo
+        title="eaisyDesk – Omnichannel AI ügyfélszolgálat | eaisy"
+        description="Az eaisyDesk omnichannel AI ügyfélszolgálat: telefon, e-mail, Messenger, Instagram és WhatsApp egy felületen – automatizált ügykezeléssel, CRM-mel és analitikával."
+        path="/eaisy-desk"
+        jsonLd={[
+          organizationSchema(),
+          softwareAppSchema({
+            name: "eaisyDesk",
+            description: "Omnichannel AI ügyfélkommunikáció: telefon, e-mail és közösségi üzenetek egy felületen, automatizált ügykezeléssel.",
+            path: "/eaisy-desk",
+          }),
+          faqSchema(FAQS),
+        ]}
+      />
       <Hero />
       <ProblemsSection />
       <SolutionSection />

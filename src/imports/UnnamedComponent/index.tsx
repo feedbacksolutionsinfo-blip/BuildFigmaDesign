@@ -1,11 +1,11 @@
 import svgPaths from "./svg-pwa2q9jt6v";
-import imgAdobeStockCa36D73123594Eaf9Aba22Cf4B21158912 from "./c27b1f201f6864f48251e9fca46ba94e8e388d54.png";
-import imgAdobeStock46775264611 from "./b9f75c0a78805e573fd7ba6264690ff7fc119464.png";
-import imgAdobeStock1715461911 from "./faf98039103ec19a5a8cea4bb3b15bb435e98f27.png";
-import imgAdobeStock5945451222 from "./0ed95b9c10d6f138aa05178ee56582c704d965a2.png";
-import imgAdobeStock2619825271 from "./8e5eb0f957911a1b8a542f8c02ebfbed02d9f155.png";
-import imgAdobeStock5945451221 from "./84645b8a5ef11283d6e6443763bb76a2b8eab618.png";
-import imgAdobeStock7965650301 from "./bfdac52013fd058c16676a0d83a329a0a460bdb9.png";
+import imgAdobeStockCa36D73123594Eaf9Aba22Cf4B21158912 from "./c27b1f201f6864f48251e9fca46ba94e8e388d54.webp";
+import imgAdobeStock46775264611 from "./b9f75c0a78805e573fd7ba6264690ff7fc119464.webp";
+import imgAdobeStock1715461911 from "./faf98039103ec19a5a8cea4bb3b15bb435e98f27.webp";
+import imgAdobeStock5945451222 from "./0ed95b9c10d6f138aa05178ee56582c704d965a2.webp";
+import imgAdobeStock2619825271 from "./8e5eb0f957911a1b8a542f8c02ebfbed02d9f155.webp";
+import imgAdobeStock5945451221 from "./84645b8a5ef11283d6e6443763bb76a2b8eab618.webp";
+import imgAdobeStock7965650301 from "./bfdac52013fd058c16676a0d83a329a0a460bdb9.webp";
 
 function Nav() {
   return (
@@ -133,7 +133,7 @@ function Hero() {
     <section className="block h-[384px] relative shrink-0 w-full" data-name="Hero 1">
       <div className="absolute aspect-[1280/584] left-0 right-0 top-[51px]" data-name="AdobeStock_ca36d731-2359-4eaf-9aba-22cf4b211589 (1) 2">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-[146.12%] left-0 max-w-none top-[-36.33%] w-full" src={imgAdobeStockCa36D73123594Eaf9Aba22Cf4B21158912} />
+          <img alt="" loading="lazy" decoding="async" className="absolute h-[146.12%] left-0 max-w-none top-[-36.33%] w-full" src={imgAdobeStockCa36D73123594Eaf9Aba22Cf4B21158912} />
         </div>
       </div>
       <Text />
@@ -746,7 +746,7 @@ function Row() {
         <div className="content-stretch flex flex-col gap-[32px] items-center justify-center pb-[32px] pt-[30px] px-[24px] relative size-full">
           <div className="h-[218px] relative rounded-[10px] shrink-0 w-[327px]" data-name="AdobeStock_467752646 (1) 1">
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[10px]">
-              <img alt="" className="absolute h-[109.18%] left-[-2.6%] max-w-none top-[-0.33%] w-[107.09%]" src={imgAdobeStock46775264611} />
+              <img alt="" loading="lazy" decoding="async" className="absolute h-[109.18%] left-[-2.6%] max-w-none top-[-0.33%] w-[107.09%]" src={imgAdobeStock46775264611} />
             </div>
           </div>
           <Content />
@@ -801,7 +801,7 @@ function Row1() {
         <div className="content-stretch flex flex-col gap-[32px] items-center justify-center px-[24px] py-[32px] relative size-full">
           <div className="h-[213px] relative rounded-[10px] shrink-0 w-[327px]" data-name="AdobeStock_171546191 1">
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[10px]">
-              <img alt="" className="absolute h-[102.27%] left-[-0.1%] max-w-none top-[-0.03%] w-full" src={imgAdobeStock1715461911} />
+              <img alt="" loading="lazy" decoding="async" className="absolute h-[102.27%] left-[-0.1%] max-w-none top-[-0.03%] w-full" src={imgAdobeStock1715461911} />
             </div>
           </div>
           <Content1 />
@@ -867,7 +867,7 @@ function Row2() {
             <div className="-scale-y-100 flex-none rotate-180">
               <div className="h-[213px] relative rounded-[30px] w-[327px]" data-name="AdobeStock_594545122 2">
                 <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[30px]">
-                  <img alt="" className="absolute h-[102.26%] left-0 max-w-none top-[-0.02%] w-full" src={imgAdobeStock5945451222} />
+                  <img alt="" loading="lazy" decoding="async" className="absolute h-[102.26%] left-0 max-w-none top-[-0.02%] w-full" src={imgAdobeStock5945451222} />
                 </div>
               </div>
             </div>
@@ -924,7 +924,7 @@ function Row3() {
         <div className="content-stretch flex flex-col gap-[32px] items-center justify-center px-[24px] py-[32px] relative size-full">
           <div className="aspect-[483/315] relative rounded-[30px] shrink-0 w-full" data-name="AdobeStock_261982527 1">
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[30px]">
-              <img alt="" className="absolute h-[102.27%] left-0 max-w-none top-[-0.03%] w-full" src={imgAdobeStock2619825271} />
+              <img alt="" loading="lazy" decoding="async" className="absolute h-[102.27%] left-0 max-w-none top-[-0.03%] w-full" src={imgAdobeStock2619825271} />
             </div>
           </div>
           <Content3 />
@@ -988,7 +988,7 @@ function Row4() {
         <div className="content-stretch flex flex-col gap-[32px] items-center justify-center pb-[32px] pt-[30px] px-[24px] relative size-full">
           <div className="h-[213px] relative rounded-[30px] shrink-0 w-[327px]" data-name="AdobeStock_594545122 1">
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[30px]">
-              <img alt="" className="absolute h-full left-[-15.79%] max-w-none top-0 w-[115.84%]" src={imgAdobeStock5945451221} />
+              <img alt="" loading="lazy" decoding="async" className="absolute h-full left-[-15.79%] max-w-none top-0 w-[115.84%]" src={imgAdobeStock5945451221} />
             </div>
           </div>
           <Content4 />
@@ -1043,7 +1043,7 @@ function Row5() {
         <div className="content-stretch flex flex-col gap-[32px] items-center justify-center pb-[80px] pt-[32px] px-[24px] relative size-full">
           <div className="aspect-[483/314] relative rounded-[30px] shrink-0 w-full" data-name="AdobeStock_796565030 1">
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[30px]">
-              <img alt="" className="absolute h-[102.6%] left-0 max-w-none top-[-2.57%] w-full" src={imgAdobeStock7965650301} />
+              <img alt="" loading="lazy" decoding="async" className="absolute h-[102.6%] left-0 max-w-none top-[-2.57%] w-full" src={imgAdobeStock7965650301} />
             </div>
           </div>
           <Content5 />

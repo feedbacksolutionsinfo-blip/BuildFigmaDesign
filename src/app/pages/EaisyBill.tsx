@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, type TransitionEvent, type PointerEvent } from "react";
 import { Link } from "react-router";
 import { ChevronDown, FileText, Calendar, Zap, Database, Clock, TrendingUp, Mail, BarChart3, Briefcase, Calculator, ArrowUpRight, ArrowDownRight, CheckCircle2, AlertCircle, EyeOff, RefreshCw, Users, Landmark } from "lucide-react";
-import imgHero from "@/imports/EaisyBillNyito0/808a7ecc27a2d6165cfc3842e1f3fe6578bebc62.png";
-import imgFeaturesBg from "@/imports/EaisyBillFunkciok/bg-dashboard.jpeg";
+import imgHero from "@/imports/EaisyBillNyito0/808a7ecc27a2d6165cfc3842e1f3fe6578bebc62.webp";
+import imgFeaturesBg from "@/imports/EaisyBillFunkciok/bg-dashboard.webp";
 import { openDemoModal } from "@/app/Root";
+import { Seo, organizationSchema, softwareAppSchema, faqSchema } from "@/app/components/Seo";
 import EaisybillLogo from "@/imports/EaisybillLogoBrightBackground/index";
 import imgBillLogo from "@/imports/EaisyBill2Megoldas/eaisybill.png";
 
@@ -150,7 +151,7 @@ function Hero() {
         }
       `}</style>
       {/* full-bleed background image */}
-      <img src={imgHero} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
+      <img src={imgHero} alt="" decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-center" />
 
       {/* white fade overlay — responsive to protect text readability */}
       <div
@@ -663,6 +664,8 @@ function FeaturesSection() {
       <img
         src={imgFeaturesBg}
         alt=""
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <div
@@ -951,6 +954,8 @@ function CtaSection() {
       <img
         src={imgFeaturesBg}
         alt=""
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <div
@@ -1046,6 +1051,20 @@ function StickyDemoCta() {
 export default function EaisyBill() {
   return (
     <div>
+      <Seo
+        title="eaisyBill – AI pénzügyi és kontrolling platform | eaisy"
+        description="Az eaisyBill AI-támogatott pénzügyi platform: automatikus számlafeldolgozás, kontírozás, NAV-szinkron, átlátható cégadatok és valós idejű pénzügyi kontroll egy helyen."
+        path="/eaisy-bill"
+        jsonLd={[
+          organizationSchema(),
+          softwareAppSchema({
+            name: "eaisyBill",
+            description: "AI-támogatott pénzügyi és kontrolling platform: automatikus számlafeldolgozás, kontírozás, NAV-szinkron és valós idejű pénzügyi kontroll.",
+            path: "/eaisy-bill",
+          }),
+          faqSchema(FAQS),
+        ]}
+      />
       <Hero />
       <ProblemsSection />
       <SolutionSection />

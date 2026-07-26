@@ -1,5 +1,5 @@
 import svgPaths from "./svg-3p8ogbicue";
-import imgImage26 from "./abe5c9e44283ca71b932c0cc950754bda11971f2.png";
+import imgImage26 from "./abe5c9e44283ca71b932c0cc950754bda11971f2.webp";
 
 function SectionHeading() {
   return <div className="absolute h-[33px] left-[55px] top-[87px] w-[518px]" data-name="SectionHeading" />;
@@ -19,7 +19,7 @@ function Group() {
       <div className="absolute flex h-[585.486px] items-center justify-center left-[-27px] top-[509px] w-[750.853px]">
         <div className="flex-none rotate-[-6.13deg]">
           <div className="h-[513.669px] relative w-[700px]" data-name="image 26">
-            <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage26} />
+            <img alt="" loading="lazy" decoding="async" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage26} />
           </div>
         </div>
       </div>

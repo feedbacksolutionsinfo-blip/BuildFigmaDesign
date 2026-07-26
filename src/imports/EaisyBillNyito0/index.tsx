@@ -1,5 +1,5 @@
 import svgPaths from "./svg-lwhpxkp3ut";
-import imgReiszedEasyibillCover1 from "./808a7ecc27a2d6165cfc3842e1f3fe6578bebc62.png";
+import imgReiszedEasyibillCover1 from "./808a7ecc27a2d6165cfc3842e1f3fe6578bebc62.webp";
 
 function Group1() {
   return (
