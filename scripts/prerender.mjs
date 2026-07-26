@@ -8,7 +8,28 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import puppeteer from "puppeteer";
+
+const IS_VERCEL = Boolean(process.env.VERCEL);
+
+async function launchBrowser() {
+  if (IS_VERCEL) {
+    // Vercel build containers can't run the stock Chrome (missing system libs),
+    // so use the serverless build of Chromium instead.
+    const { default: chromium } = await import("@sparticuz/chromium");
+    const { default: puppeteerCore } = await import("puppeteer-core");
+    chromium.setGraphicsMode = false;
+    return puppeteerCore.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: "shell",
+    });
+  }
+  const { default: puppeteer } = await import("puppeteer");
+  return puppeteer.launch({
+    headless: "shell",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.resolve(__dirname, "../dist");
@@ -57,10 +78,7 @@ async function main() {
   const port = server.address().port;
   const base = `http://127.0.0.1:${port}`;
 
-  const browser = await puppeteer.launch({
-    headless: "shell",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  const browser = await launchBrowser();
 
   try {
     for (const route of ROUTES) {
