@@ -539,9 +539,17 @@ function SiteFooter() {
           <p className="text-xs font-['Inter',sans-serif] text-white/30">
             © 2024 THINK AI Kft. Minden jog fenntartva.
           </p>
-          <p className="text-xs font-['Inter',sans-serif] text-white/30">
-            100% GDPR kompatibilis
-          </p>
+          <div className="flex items-center gap-4">
+            <a
+              href="/privacy"
+              className="text-xs font-['Inter',sans-serif] text-white/30 hover:text-white transition-colors underline-offset-2 hover:underline"
+            >
+              Adatvédelem / Privacy Policy
+            </a>
+            <p className="text-xs font-['Inter',sans-serif] text-white/30">
+              100% GDPR kompatibilis
+            </p>
+          </div>
         </div>
       </div>
     </footer>
